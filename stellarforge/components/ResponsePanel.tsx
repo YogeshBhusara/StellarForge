@@ -8,6 +8,7 @@ interface ResponsePanelProps {
   isLoading: boolean;
   loadingLabel?: string;
   actions?: ReactNode;
+  compact?: boolean;
 }
 
 function renderInline(text: string, keyPrefix: string) {
@@ -35,7 +36,7 @@ function formatContent(text: string) {
     nodes.push(
       <Tag
         key={`list-${key}`}
-        className={`ml-5 space-y-1 text-slate-300 ${listBuffer.ordered ? "list-decimal" : "list-disc"}`}
+        className={`ml-5 space-y-1 text-[15px] leading-7 text-slate-200 ${listBuffer.ordered ? "list-decimal" : "list-disc"}`}
       >
         {listBuffer.items.map((item, i) => (
           <li key={i}>{renderInline(item, `li-${key}-${i}`)}</li>
@@ -67,7 +68,7 @@ function formatContent(text: string) {
     flushList(i);
     if (/^#+\s/.test(line)) {
       nodes.push(
-        <h3 key={i} className="mt-5 font-mono text-base font-semibold text-glow first:mt-0">
+        <h3 key={i} className="mt-5 font-display text-base font-semibold text-glow first:mt-0">
           {line.replace(/^#+\s*/, "")}
         </h3>
       );
@@ -77,7 +78,7 @@ function formatContent(text: string) {
       return;
     }
     nodes.push(
-      <p key={i} className="mt-2 leading-relaxed text-slate-300">
+      <p key={i} className="mt-2 text-[15px] leading-7 text-slate-200">
         {renderInline(line, `p-${i}`)}
       </p>
     );
@@ -89,16 +90,14 @@ function formatContent(text: string) {
 export default function ResponsePanel({
   content,
   isLoading,
-  loadingLabel = "Consulting Mission Control...",
+  loadingLabel = "Working…",
   actions,
+  compact = false,
 }: ResponsePanelProps) {
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-slate-600/50 bg-slate-900/50 p-6 shadow-glow-sm">
-        <p className="animate-pulse font-mono text-slate-400">{loadingLabel}</p>
-        <p className="mt-2 font-mono text-xs text-slate-600">
-          Grounding the scene in NASA terminology…
-        </p>
+      <div className={`glass rounded-xl ${compact ? "p-4" : "p-6"}`}>
+        <p className="animate-pulse font-display text-sm text-glow">{loadingLabel}</p>
       </div>
     );
   }
@@ -106,17 +105,12 @@ export default function ResponsePanel({
   if (!content) return null;
 
   return (
-    <div className="rounded-lg border border-slate-600/50 bg-slate-900/50 p-6 shadow-glow-sm transition-all duration-300">
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="font-mono text-xs uppercase tracking-wide text-slate-500">
-          Mission output
-        </h2>
-        <div className="flex items-center gap-2">
-          {actions}
-          <CopyButton text={content} />
-        </div>
+    <div className={`glass rounded-xl ${compact ? "p-4" : "p-6"}`}>
+      <div className="mb-3 flex items-center justify-end gap-2">
+        {actions}
+        <CopyButton text={content} />
       </div>
-      <div className="max-w-none font-mono text-sm">{formatContent(content)}</div>
+      <div className="max-w-none font-sans text-[15px] leading-7">{formatContent(content)}</div>
     </div>
   );
 }

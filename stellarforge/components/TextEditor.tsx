@@ -10,6 +10,7 @@ interface TextEditorProps {
   onSubmitShortcut?: () => void;
   id?: string;
   label?: string;
+  compact?: boolean;
 }
 
 const TextEditor = forwardRef<HTMLTextAreaElement, TextEditorProps>(
@@ -17,26 +18,26 @@ const TextEditor = forwardRef<HTMLTextAreaElement, TextEditorProps>(
     {
       value,
       onChange,
-      placeholder = "Paste or type your scene here...",
+      placeholder = "Start writing…",
       onSubmitShortcut,
       id = "scene-editor",
       label = "Scene",
+      compact = false,
     },
     ref
   ) {
-    const remaining = MAX_SCENE_LENGTH - value.length;
-    const overLimit = remaining < 0;
+    const overLimit = value.length > MAX_SCENE_LENGTH;
 
     return (
-      <div className="space-y-2">
-        <div className="flex items-center justify-between gap-3">
-          <label htmlFor={id} className="font-mono text-xs uppercase tracking-wide text-slate-500">
+      <div className={compact ? "flex h-full min-h-0 flex-col" : "space-y-2"}>
+        <div className="mb-1 flex items-center justify-between">
+          <label htmlFor={id} className={compact ? "sr-only" : "font-display text-sm text-slate-300"}>
             {label}
           </label>
           <span
-            className={`font-mono text-xs ${overLimit ? "text-red-400" : "text-slate-500"}`}
+            className={`ml-auto font-display text-xs ${overLimit ? "text-red-400" : "text-slate-500"}`}
           >
-            {value.length.toLocaleString()} / {MAX_SCENE_LENGTH.toLocaleString()}
+            {value.length.toLocaleString()}
           </span>
         </div>
         <textarea
@@ -52,12 +53,12 @@ const TextEditor = forwardRef<HTMLTextAreaElement, TextEditorProps>(
           }}
           placeholder={placeholder}
           maxLength={MAX_SCENE_LENGTH}
-          aria-describedby={`${id}-hint`}
-          className="min-h-[280px] w-full resize-y rounded-lg border border-slate-600 bg-slate-900/80 p-4 font-mono text-sm leading-relaxed text-white placeholder-slate-500 outline-none transition-all focus:border-glow focus:ring-2 focus:ring-glow/20"
+          className={
+            compact
+              ? "glass min-h-0 w-full flex-1 resize-none rounded-xl p-5 font-sans text-[17px] leading-8 tracking-[0.01em] text-[#eef3fb] placeholder:text-slate-500 outline-none focus:border-glow/60"
+              : "glass min-h-[280px] w-full resize-y rounded-xl p-5 font-sans text-[17px] leading-8 text-[#eef3fb] placeholder:text-slate-500 outline-none focus:border-glow/60"
+          }
         />
-        <p id={`${id}-hint`} className="font-mono text-xs text-slate-500">
-          ⌘ / Ctrl + Enter to run
-        </p>
       </div>
     );
   }

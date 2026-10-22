@@ -17,7 +17,7 @@ function TermRow({
 }: NasaTerm & { onAdd: () => void; justAdded: boolean }) {
   const [showDef, setShowDef] = useState(false);
   return (
-    <div className="rounded-lg border border-slate-700/50 bg-slate-900/50 p-3 transition-all hover:border-glow/30">
+    <div className="rounded-lg border border-cyan-200/10 bg-white/[0.03] p-3 transition hover:border-glow/30">
       <div className="flex items-start justify-between gap-2">
         <button
           type="button"
@@ -25,20 +25,22 @@ function TermRow({
           className="flex-1 text-left"
           aria-expanded={showDef}
         >
-          <span className="block font-mono text-sm font-medium text-glow">{term}</span>
-          <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wide text-slate-500">
+          <span className="block font-display text-[15px] font-semibold text-glow">{term}</span>
+          <span className="mt-0.5 block font-display text-[11px] uppercase tracking-wider text-slate-400">
             {category}
           </span>
         </button>
         <button
           type="button"
           onClick={onAdd}
-          className="shrink-0 rounded bg-cyan-600/80 px-2 py-1 font-mono text-xs text-white transition-colors hover:bg-cyan-500"
+          className="shrink-0 rounded-md bg-cyan-500/90 px-2.5 py-1 font-display text-xs font-semibold text-slate-950 hover:bg-cyan-400"
         >
           {justAdded ? "Added" : "Add"}
         </button>
       </div>
-      {showDef && <p className="mt-2 text-xs leading-relaxed text-slate-400">{definition}</p>}
+      {showDef && (
+        <p className="mt-2 text-sm leading-6 text-slate-300">{definition}</p>
+      )}
     </div>
   );
 }
@@ -64,19 +66,15 @@ export default function TermExplorerPanel({
   }, [search, category]);
 
   return (
-    <div className="flex h-full max-h-[70vh] flex-col rounded-lg border border-slate-700/50 bg-slate-900/30 lg:max-h-[calc(100vh-8rem)]">
-      <div className="border-b border-slate-700/50 p-3">
-        <h2 className="font-mono text-sm font-semibold text-white">Term Explorer</h2>
-        <p className="mt-0.5 text-xs text-slate-500">
-          Search, then Add to insert at the cursor
-        </p>
+    <div className="glass flex h-full min-h-0 flex-col rounded-xl">
+      <div className="border-b border-cyan-200/10 p-3">
         <input
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search terms..."
+          placeholder="Search terms…"
           aria-label="Search NASA terms"
-          className="mt-3 w-full rounded border border-slate-600 bg-slate-800/80 px-3 py-2 font-mono text-xs text-white placeholder-slate-500 outline-none focus:border-glow focus:ring-1 focus:ring-glow/20"
+          className="w-full rounded-lg border border-cyan-200/15 bg-black/30 px-3 py-2.5 font-sans text-sm text-white placeholder:text-slate-500 outline-none focus:border-glow/50"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {termCategories.map((c) => (
@@ -84,10 +82,10 @@ export default function TermExplorerPanel({
               key={c}
               type="button"
               onClick={() => setCategory(c)}
-              className={`rounded px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide ${
+              className={`rounded-full px-2.5 py-1 font-display text-[11px] font-medium uppercase tracking-wide ${
                 category === c
-                  ? "bg-cyan-600/30 text-glow"
-                  : "bg-slate-800 text-slate-500 hover:text-slate-300"
+                  ? "bg-cyan-400/15 text-glow"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
               {c}
@@ -110,9 +108,7 @@ export default function TermExplorerPanel({
           ))}
         </ul>
         {filtered.length === 0 && (
-          <p className="py-4 text-center font-mono text-xs text-slate-500">
-            No terms match
-          </p>
+          <p className="py-4 text-center text-sm text-slate-400">No matches</p>
         )}
       </div>
     </div>
