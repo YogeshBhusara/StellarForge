@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "id": "nasa_appendix_b_glossary",
+      "name": "NASA Systems Engineering Handbook Appendix B: Glossary",
+      "type": "science_glossary",
+      "url": "https://nasa.gov/reference/appendix-b-glossary",
+      "description": "Official NASA glossary of systems engineering terms, providing authoritative definitions for aerospace and space science concepts.",
+      "tags": ["nasa", "spaceflight", "engineering", "terminology", "glossary"]
+    },
+    {
+      "id": "esr_sf_glossary",
+      "name": "An SF Glossary (Eric S. Raymond)",
+      "type": "sf_jargon_glossary",
+      "url": "http://www.catb.org/~esr/sf-words/glossary.html",
+      "description": "Comprehensive glossary of science-fiction jargon and coined terms (e.g., ansible, antigrav, ringworld), with etymology and usage notes.",
+      "tags": ["science fiction", "terminology", "jargon", "history", "etymology"]
+    },
+    {
+      "id": "sf_encyclopedia_terminology",
+      "name": "The Encyclopedia of Science Fiction: Terminology",
+      "type": "sf_terminology_hub",
+      "url": "https://sf-encyclopedia.com/entry/terminology",
+      "description": "Curated index of SF terminology and themes, linking to detailed entries for genre concepts, scientific borrowings, and SF-coined terms.",
+      "tags": ["science fiction", "encyclopedia", "terminology", "themes", "reference"]
+    },
+    {
+      "id": "historical_dictionary_sf",
+      "name": "Historical Dictionary of Science Fiction",
+      "type": "historical_dictionary",
+      "url": "https://sfdictionary.com/",
+      "description": "Historical dictionary of science-fiction vocabulary with citations, superseding the OED SF citations project.",
+      "tags": ["science fiction", "dictionary", "history", "vocabulary", "citations"]
+    }
+  ]
+}

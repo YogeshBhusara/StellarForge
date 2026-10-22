@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #0a0e17;
+  --navy: #0f172a;
+  --glow: #38bdf8;
+}
+
+html {
+  @apply antialiased;
+}
+
+body {
+  @apply min-h-screen bg-void text-white;
+  background: radial-gradient(ellipse at top, #0f172a 0%, #0a0e17 50%, #020617 100%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.35);
+}
+
+.starfield::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 40px 70px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1.5px 1.5px at 50px 160px, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1.5px 1.5px at 90px 40px, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1.5px 1.5px at 130px 80px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 170px 120px, rgba(56, 189, 248, 0.5), transparent);
+  background-size: 220px 220px;
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+  animation: twinkle 6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield::before {
+    animation: none;
+  }
+}
